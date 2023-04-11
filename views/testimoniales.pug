@@ -1,0 +1,38 @@
+extends ./layout/index
+
+block contenido
+    main.container.mt-5 
+            h1.text-center.mt-5 #{pagina} 
+
+            p= JSON.stringify(testimoniales)
+
+            blockquote.text-center Lee sobre nuestros clientes y sus experiencias
+            include ./layout/bloque_testimoniales
+            .row
+                .col-md-12
+                    h2.d-block.w-100.text-center Agrega un testimonio
+
+                    if(errores){
+                         each error of errores 
+                         .alert.col.alert-danger.text-center= error.mensaje
+                     }
+
+                .row.justify-concent-center.col
+                    .col-md-8 
+                        //- siempre que llenamos un formulario tien que ser metodo post
+                        form(action="" method="POST")
+                           .form-group 
+                                //-    lo que hace el for es que cuando presionemos el label se active el input, por eso for y su id deben ser iguales
+                               label(for="nombre") Nombre
+                               //-    el id en pug se asigna con el numeral, name va a servir para leer lo que el usuario escribio en ese imput
+                               input#nombre(type="text", placeholder="tu nombre", name="nombre", class="form-control", value = nombre)
+                           .form-group 
+                               label(for="email") Email
+                               //-    el id en pug se asigna con el numeral, name va a servir para leer lo que el usuario escribio en ese imput
+                               input#email(type="text", placeholder="Email", name="email", class="form-control", value=email)
+                           .form-group 
+                               label(for="email") Mensaje
+                               //-    el id en pug se asigna con el numeral, name va a servir para leer lo que el usuario escribio en ese imput, el valu=text area se coloca generalmente por fuera
+                               textarea#mensaje(placeholder="tu mensaje", name="Tu mensaje", class="form-control", rows=3)=mensaje
+                            //-  los input necesitan un type submit
+                            input.btn.btn-succes.btn-blcok(type="submit")
